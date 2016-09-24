@@ -9,7 +9,7 @@
 [submodule "app-artifacts/cask-tracker"]
 	path = app-artifacts/cask-tracker
 	url = https://github.com/caskdata/cask-tracker.git
-	branch = develop
+	branch = feature/cdap-4-sneak-peek
 [submodule "app-artifacts/cdap-navigator"]
 	path = app-artifacts/cdap-navigator
 	url = https://github.com/caskdata/cdap-navigator.git
