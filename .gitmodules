@@ -1,7 +1,7 @@
 [submodule "cdap"]
 	path = cdap
 	url = https://github.com/caskdata/cdap.git
-	branch = release/4.2 
+	branch = feature/rename-packer-dev
 [submodule "app-artifacts/hydrator-plugins"]
 	path = app-artifacts/hydrator-plugins
 	url = https://github.com/caskdata/hydrator-plugins.git
