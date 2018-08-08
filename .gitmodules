@@ -22,3 +22,7 @@
 	path = app-artifacts/dre
 	url = https://github.com/cask-solutions/dre.git
 	branch = develop
+[submodule "app-artifacts/file"]
+	path = app-artifacts/file
+	url = https://github.com/data-integrations/file.git
+	branch = develop
