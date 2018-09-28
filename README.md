@@ -71,3 +71,31 @@ mvn package -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb,t
  -Dadditional.artifacts.dir=$(pwd)/app-artifacts \
  -Dsecurity.extensions.dir=$(pwd)/security-extensions
 ```
+
+## Guavus steps to BUILD CDAP RPMs
+
+Move inside the cdap directory
+run the following to command to compile all the modules inside the cdap directory
+
+```bash
+mvn clean install -Dmaven.test.failure.ignore=true 
+```
+
+Once its compile check the file .gitmodule present inside the parent directory and check the branches of all the submodules. 
+Though if you have follow the above steps mentioned under the Submodules and git then it should
+have the same branches as mentioned in the .gitmodules file.
+
+Follow the following commands
+
+```bash
+mvn clean install -Dmaven.test.failure.ignore=true -f apache-sentry
+export MAVEN_OPTS="-Xmx3056m -XX:MaxPermSize=128m"
+mvn install -Dmaven.test.failure.ignore=true -B -am -pl cdap/cdap-api -P templates
+mvn install -Dmaven.test.failure.ignore=true -B -am -f cdap/cdap-app-templates -P templates
+mvn package -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb,tgz,unit-tests \
+-Dmaven.test.failure.ignore=true \
+-Dadditional.artifacts.dir=$(pwd)/app-artifacts \
+-Dsecurity.extensions.dir=$(pwd)/security-extensions
+```
+
+
