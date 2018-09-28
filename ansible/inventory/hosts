@@ -1,11 +1,11 @@
 [management-nodes]
-devops002-pankaj-mgt-01.gvs.ggn
+platacc002-mgt-01.gvs.ggn
 
 [master-nodes]
-devops002-pankaj-mst-01.gvs.ggn
-devops002-pankaj-mst-02.gvs.ggn
+platacc002-mst-01.gvs.ggn
+platacc002-mst-02.gvs.ggn
 
 [slave-nodes]
-devops002-pankaj-slv-01.gvs.ggn
-devops002-pankaj-slv-02.gvs.ggn
-devops002-pankaj-slv-03.gvs.ggn
+platacc002-slv-01.gvs.ggn
+platacc002-slv-02.gvs.ggn
+platacc002-slv-03.gvs.ggn
