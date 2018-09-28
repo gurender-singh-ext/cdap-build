@@ -1,4 +1,4 @@
-# _valhalla_ - The Reflex Provisioner
+# The Reflex Provisioner
 
 
 # Introduction 
@@ -15,4 +15,4 @@ the ability to be able to choose what would work best for their specific usage.
 
 
 # Documentation
-The documentation can be found here - https://github.com/Guavus/cdap/wiki
+
