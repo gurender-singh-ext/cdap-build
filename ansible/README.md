@@ -16,3 +16,15 @@ the ability to be able to choose what would work best for their specific usage.
 
 # Documentation
 
+Before starting the deployment of CDAP:
+
+1) Change the environment and cdap variables in 'inventory/group_vars/all.yml'
+2) Change the host entries into 'inventory/hosts'
+
+After changing the variables and hosts entries, run the below commands to deploy or un-deploy the cdap.
+
+Deploy CDAP:
+ansible-playbook -i inventory/hosts playbooks/cdap/deploy_cdap.yml --ask-pass --user root
+
+UnDeploy CDAP:
+ansible-playbook -i inventory/hosts playbooks/cdap/undeploy_cdap.yml --ask-pass --user root
