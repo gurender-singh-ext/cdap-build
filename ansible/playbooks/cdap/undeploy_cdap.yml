@@ -13,20 +13,7 @@
   hosts:
     - all:!loadbalancer-nodes
   any_errors_fatal: true
-  vars:
-    - site_deployment_type: "HA"
-    - install_using_public_repos: "false"
-    - cdap_master_nodes: "master-nodes"
-    - cdap_management_nodes: "management-nodes"
-    - cdap_loadbalancer_vip: "192.168.134.213"
-    - site_default_rpm_repo_host: 'artifacts.ggn.in.guavus.com:80'
-    - cluster_name: 'arch001-reflex-platform'
-    - ambari_admin_user: 'admin'
-    - ambari_admin_password: 'Sbe7UGkRBMF8'
-    - cdap_properties_dir: "/opt/guavus/ambari-api/cdap/properties"
-    - site_default_rpm_repo_host: "artifacts.ggn.in.guavus.com:80"
-    - cdap_version: '4.3.5'
-    - cdap_major_version: '4.3'
-    - hdp_version: '2.6.5.0'
+  vars_files:
+    - ../../inventory/group_vars/all.yml
   roles:
     - cdap/undeploy

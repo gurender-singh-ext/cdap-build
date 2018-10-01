@@ -1,11 +1,10 @@
 [management-nodes]
-platacc002-mgt-01.gvs.ggn
+platacc004-mst-01.gvs.ggn
 
 [master-nodes]
-platacc002-mst-01.gvs.ggn
-platacc002-mst-02.gvs.ggn
+platacc004-mst-01.gvs.ggn
 
 [slave-nodes]
-platacc002-slv-01.gvs.ggn
-platacc002-slv-02.gvs.ggn
-platacc002-slv-03.gvs.ggn
+platacc004-slv-02.gvs.ggn
+platacc004-slv-03.gvs.ggn
+platacc004-slv-01.gvs.ggn
