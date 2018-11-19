@@ -11,6 +11,6 @@ ambari_admin_user: 'admin'
 ambari_admin_password: 'Sbe7UGkRBMF8'
 cdap_properties_dir: "/opt/guavus/ambari-api/cdap/properties"
 site_default_rpm_repo_host: "artifacts.ggn.in.guavus.com:80"
-cdap_version: '5.1'
-cdap_major_version: '5.1'
+cdap_version: '5.1.0'
+cdap_major_version: '5.1.0'
 hdp_version: '2.6.5.0'
