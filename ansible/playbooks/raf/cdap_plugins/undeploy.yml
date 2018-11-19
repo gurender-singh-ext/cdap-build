@@ -1,3 +1,4 @@
-include: ../../guavus_cdap_plugins/undeploy.yml
+---
+- include: ../../guavus_cdap_plugins/undeploy.yml
 
-include: ../cdap/undeploy_cdap.yml
+- include: ../cdap/undeploy_cdap.yml
