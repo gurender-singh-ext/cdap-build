@@ -42,12 +42,6 @@ pipeline {
 		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${REL_BUILD_NO}   \
 		"""
 	}}}
-	
-	//stage('SonarQube analysis') {
-    	//  steps {
-      	//      script {
-        //	sonarqube('${WORKSPACE}/cdap')
-      	// }}}
 	  
 	stage('SonarQube analysis') {
 	  steps {
@@ -62,7 +56,6 @@ pipeline {
 	  steps{
 	    script{
 	    sh ''
-//	    rpm_push( env.buildType, '.', 'ggn-dev-rpms/cdap-build' )
 	  rpm_push( env.buildType, '${WORKSPACE}/cdap/**/target', 'ggn-dev-rpms/cdap-build' )
 	  rpm_push( env.buildType, '${WORKSPACE}/cdap-ambari-service/target', 'ggn-dev-rpms/cdap-build' )
 	  rpm_push( env.buildType, '${WORKSPACE}/cdap-provisioner*.rpm', 'ggn-dev-rpms/cdap-build' )
