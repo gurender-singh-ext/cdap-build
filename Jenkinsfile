@@ -33,7 +33,12 @@ pipeline {
 		cd .. && \
 		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
 		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
-                mvn install -DskipTests -Dcheckstyle.skip=true -f cdap && \
+                mvn clean install -DskipTests -f cdap/cdap-api && \
+                mvn clean install -DskipTests -f cdap/cdap-common && \
+                mvn clean install -DskipTests -f cdap/cdap-app-fabric && \
+                mvn clean install -DskipTests -f cdap/cdap-proto && \
+                mvn clean install -DskipTests -f cdap/cdap-cli && \
+                mvn clean install -DskipTests -f cdap/cdap-client-tests && \
 		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
 		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm  && \
 		mvn package -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
