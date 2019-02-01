@@ -10,10 +10,6 @@
 	path = security-extensions/cdap-security-extn
 	url = https://github.com/Guavus/cdap-security-extn.git
 	branch = build_guavus_0.8_latest
-[submodule "apache-sentry"]
-	path = apache-sentry
-	url = https://github.com/Guavus/sentry
-	branch = build_guavus_1.7.0
 [submodule "app-artifacts/mmds"]
 	path = app-artifacts/mmds
 	url = https://github.com/Guavus/mmds.git
@@ -30,3 +26,7 @@
         path = app-artifacts/auto-feature-engineering
         url = https://github.com/Guavus/auto-feature-engineering.git
         branch = 1.0.0 
+[submodule "sentry"]
+	path = sentry
+	url = https://github.com/Guavus/sentry
+	branch = build_guavus_1.7.0
