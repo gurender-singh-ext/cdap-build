@@ -45,7 +45,7 @@ pipeline {
 		-DskipTests \
 		-Dcheckstyle.skip=true \
 		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${REL_BUILD_NO}   \
+		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}   \
 		"""
 	}}}
 	  
