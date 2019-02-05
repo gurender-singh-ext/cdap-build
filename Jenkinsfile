@@ -14,7 +14,6 @@ pipeline {
 	stage('Build') {
 	  steps {
 	    script {
-		def REL_BUILD_NO = currentBuild.getNumber()
 		sh"""
 		git clean -xfd  && \
 		git submodule foreach --recursive git clean -xfd && \
