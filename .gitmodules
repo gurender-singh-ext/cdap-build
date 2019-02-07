@@ -26,3 +26,7 @@
 	path = sentry
 	url = https://github.com/Guavus/sentry
 	branch = branch-1.7.0
+[submodule "app-artifacts/auto-feature-engineering"]
+	path = app-artifacts/auto-feature-engineering
+	url = git@github.com:Guavus/auto-feature-engineering.git
+        branch = 1.0.0
