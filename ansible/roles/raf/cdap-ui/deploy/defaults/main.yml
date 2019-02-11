@@ -1,7 +1,7 @@
 ---
 # defaults file for cdap-ui
 
---------------------
-CDAP UI THEME CONFIG
---------------------
+#--------------------
+#CDAP UI THEME CONFIG
+#--------------------
 cdap__ui_theme_file: 'ui/server/config/themes/{{site_customer_name}}.json'
