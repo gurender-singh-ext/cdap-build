@@ -14,7 +14,6 @@ pipeline {
 	stage('Build') {
 	  steps {
 	    script {
-		def REL_BUILD_NO = currentBuild.getNumber()
 		sh"""
 		git clean -xfd  && \
 		git submodule foreach --recursive git clean -xfd && \
@@ -42,7 +41,7 @@ pipeline {
 		-DskipTests \
 		-Dcheckstyle.skip=true \
 		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${REL_BUILD_NO}   \
+		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}   \
 		"""
 	}}}
 	  
@@ -53,6 +52,12 @@ pipeline {
 		withSonarQubeEnv('sonar') {
 		echo "sonar"
 		sh 'cd ${WORKSPACE}/cdap && mvn sonar:sonar'
+		timeout(time: 1, unit: 'HOURS') {
+		def qg = waitForQualityGate()
+		if (qg.status != 'OK') {
+		error "Pipeline aborted due to quality gate failure: ${qg.status}"
+		}
+		}
             }}}}
 	  
 	stage("RPM PUSH"){
