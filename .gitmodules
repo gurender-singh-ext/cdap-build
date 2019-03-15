@@ -17,7 +17,7 @@
 [submodule "app-artifacts/dre"]
 	path = app-artifacts/dre
 	url = https://github.com/Guavus/dre.git
-	branch = vRAF-3.4.0-guavus-5.1.202_tmp
+	branch = vRAF-3.4.0-guavus-5.1.202
 [submodule "cdap-ambari-service"]
 	path = cdap-ambari-service
 	url = https://github.com/Guavus/cdap-ambari-service.git
