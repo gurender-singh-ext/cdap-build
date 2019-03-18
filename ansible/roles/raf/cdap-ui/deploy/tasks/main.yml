@@ -4,7 +4,9 @@
   shell: "/var/lib/ambari-server/resources/scripts/configs.py -a set -u {{ ambari_admin_user }} -p {{ ambari_admin_password }} -l {{ cdap_loadbalancer_vip }} -n {{ cluster_name }} -c {{ item.config }} -k {{ item.key }} -v {{ item.value }}"
   with_items:
     - { config: 'cdap-site', key: 'ui.theme.file', value: '{{cdap__ui_theme_file}}' }
-  when: inventory_hostname == groups[cdap_management_nodes][0]
+  when: 
+    - inventory_hostname == groups[cdap_management_nodes][0]
+    - analytics_engine == true
 
 - name: Start CDAP Service
   uri:
