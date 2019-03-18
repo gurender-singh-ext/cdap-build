@@ -43,6 +43,21 @@
   roles:
     - {role: raf/cdap/deploy}
 
+- name: Deploy CDAP-UI Configs
+  hosts:
+    - all:!loadbalancer-nodes
+  any_errors_fatal: true
+  vars_files:
+    - "../../../playbooks/hortonworks/playbooks/group_vars/all"
+    - "../../../playbooks/hortonworks/playbooks/group_vars/ambari-server"
+  vars:
+    - cdap_cluster_name: "{{ cluster_name  }}"
+    - cdap_master_nodes: "master-nodes"
+    - cdap_management_nodes: "management-nodes"
+    - cdap_loadbalancer_vip: "{{ site_floating_ip.ip }}"
+  roles:
+    - {role: raf/cdap-ui/deploy}
+
 - name: 'Add all cdap machines in haproxy'
   hosts:
     - loadbalancer-nodes

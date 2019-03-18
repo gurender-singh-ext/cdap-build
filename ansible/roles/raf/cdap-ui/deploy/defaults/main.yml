@@ -1,0 +1,10 @@
+---
+# defaults file for cdap-ui
+
+--------------------
+CDAP UI THEME CONFIG
+--------------------
+
+cdap__ui_theme_name: 'afe'
+
+cdap__ui_theme_file: 'ui/server/config/themes/{{cdap__ui_theme_name}}.json'
