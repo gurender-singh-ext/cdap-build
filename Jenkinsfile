@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 @Library('jenkins_lib')_
 pipeline {
   agent {label 'slave'}
