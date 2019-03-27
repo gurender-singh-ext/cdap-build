@@ -40,9 +40,12 @@ pipeline {
 		cd .. && \
 		cd cdap && \
 		mvn clean install -DskipTests -Dcheckstyle.skip && \
+		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true && \
 		cd .. && \
 		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
+		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true -B -am -pl cdap/cdap-api -P templates && \
 		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
+		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true -B -am -f cdap/cdap-app-templates -P templates && \
 		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
 		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm  && \
 		mvn package -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
