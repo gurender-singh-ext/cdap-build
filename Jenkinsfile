@@ -62,9 +62,11 @@ pipeline {
 		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
 		    }
+		sh"""
 		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
         	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
         	mvn sonar:sonar -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts
+		"""
 	}}}
 	  
 stage('SonarQube analysis') {
