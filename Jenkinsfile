@@ -9,7 +9,11 @@ pipeline {
 	ARTIFACT_SRC2 = './cdap-ambari-service/target'
 	ARTIFACT_DEST1 = 'gvs-dev-debian/pool/c'
 	SONAR_PATH = './cdap'
-	SONAR_PATH_APP_ARTIFACTS = './app-artifacts'
+	SONAR_PATH_APP_ARTIFACTS_DRE = './app-artifacts/dre'
+	SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS = './app-artifacts/hydrator-plugins'
+	SONAR_PATH_APP_ARTIFACTS_MRDS = './app-artifacts/cdap-mrds'
+	SONAR_PATH_APP_ARTIFACTS_MMDS = './app-artifacts/mmds'
+	SONAR_PATH_APP_ARTIFACTS_AFE = './app-artifacts/auto-feature-engineering'
 	SONAR_PATH_SECURITY_EXTN = './security-extensions'  
 	}
   stages {
@@ -74,7 +78,11 @@ stage('SonarQube analysis') {
 steps {
 script {
 sonarqube(env.SONAR_PATH)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS_DRE)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS_MRDS)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS_MMDS)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS_AFE)
 sonarqube(env.SONAR_PATH_SECURITY_EXTN)
 timeout(time: 1, unit: 'HOURS') {
 def qg = waitForQualityGate()
