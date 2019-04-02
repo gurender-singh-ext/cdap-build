@@ -77,13 +77,10 @@ pipeline {
 stage('SonarQube analysis') {
 steps {
 script {
-sonarqube(env.SONAR_PATH)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS_DRE)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS_MRDS)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS_MMDS)
-sonarqube(env.SONAR_PATH_APP_ARTIFACTS_AFE)
-sonarqube(env.SONAR_PATH_SECURITY_EXTN)
+sh """
+     mvn sonar:sonar -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
+    -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html \
+    -Dsonar.dependencyCheck.reportPath=target/dependency-check-report.xml """
 timeout(time: 1, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
