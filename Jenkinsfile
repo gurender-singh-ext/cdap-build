@@ -9,6 +9,8 @@ pipeline {
 	ARTIFACT_SRC2 = './cdap-ambari-service/target'
 	ARTIFACT_DEST1 = 'gvs-dev-debian/pool/c'
 	SONAR_PATH = './cdap'
+	SONAR_PATH_APP_ARTIFACTS = './app-artifacts'
+	SONAR_PATH_SECURITY_EXTN = './security-extensions'  
 	}
   stages {
     stage("Define Release version"){
@@ -64,8 +66,7 @@ pipeline {
 		    }
 		sh"""
 		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
-        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
-        	mvn sonar:sonar -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts
+        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
 	  
@@ -73,6 +74,8 @@ stage('SonarQube analysis') {
 steps {
 script {
 sonarqube(env.SONAR_PATH)
+sonarqube(env.SONAR_PATH_APP_ARTIFACTS)
+sonarqube(env.SONAR_PATH_SECURITY_EXTN)
 timeout(time: 1, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
