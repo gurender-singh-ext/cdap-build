@@ -52,7 +52,7 @@ pipeline {
                 -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE} && \
 		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
 		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
-		mvn sonar:sonar -Dadditional.artifacts.dir=Users/rishab.himmatramka/git/ek-aur-cdap/app-artifacts \
+		mvn sonar:sonar -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
 	  
