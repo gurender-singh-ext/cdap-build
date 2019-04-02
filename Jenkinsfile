@@ -45,7 +45,7 @@ pipeline {
 		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
 		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
 		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm  && \
-		mvn clean install deploy \
+		mvn clean install \
                 -DskipTests \
                 -Dcheckstyle.skip=true \
                 -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
