@@ -45,16 +45,13 @@ pipeline {
 		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
 		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
 		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm  && \
-		mvn clean install \
+		mvn clean install -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
                 -DskipTests \
                 -Dcheckstyle.skip=true \
                 -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
                 -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE} && \
-		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true deploy -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
-		-DskipTests \
-		-Dcheckstyle.skip=true \
-		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE} && \
+		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
+		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
 		mvn sonar:sonar -Dadditional.artifacts.dir=Users/rishab.himmatramka/git/ek-aur-cdap/app-artifacts \
 		"""
 	}}}
