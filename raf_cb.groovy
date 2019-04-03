@@ -32,11 +32,12 @@ def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
 echo "sonar"
 sh 'cd ${WORKSPACE}/cdap && mvn sonar:sonar'
-timeout(time: 1, unit: 'HOURS') {
-def qg = waitForQualityGate()
-if (qg.status != 'OK') {
-error "Pipeline aborted due to quality gate failure: ${qg.status}"
-}}}
+//timeout(time: 1, unit: 'HOURS') {
+//def qg = waitForQualityGate()
+//if (qg.status != 'OK') {
+//error "Pipeline aborted due to quality gate failure: ${qg.status}"
+//}}
+}
 
 rpm_push( env.buildType, '${WORKSPACE}/cdap/**/target', 'ggn-dev-rpms/cdap-build' )
 rpm_push( env.buildType, '${WORKSPACE}/cdap-ambari-service/target', 'ggn-dev-rpms/cdap-build' )
