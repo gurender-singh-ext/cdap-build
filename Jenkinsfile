@@ -8,7 +8,7 @@ pipeline {
 	ARTIFACT_SRC1 = './cdap/**/target'
 	ARTIFACT_SRC2 = './cdap-ambari-service/target'
 	ARTIFACT_DEST1 = 'gvs-dev-debian/pool/c'
-	SONAR_PATH = './cdap'
+	SONAR_PATH_CDAP = './cdap'
 	SONAR_PATH_APP_ARTIFACTS_DRE = './app-artifacts/dre'
 	SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS = './app-artifacts/hydrator-plugins'
 	SONAR_PATH_APP_ARTIFACTS_MRDS = './app-artifacts/cdap-mrds'
@@ -82,7 +82,13 @@ withSonarQubeEnv('sonar') {
 /* 
 cdap_sonar(Path, Name_of_Branch, Any_Additional_Arguments)
 */
-cdap_sonar(env.SONAR_PATH, env.BRANCH_NAME, '-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts')
+cdap_sonar(env.SONAR_PATH_CDAP, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.BRANCH_NAME)
+cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.BRANCH_NAME)
 timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
