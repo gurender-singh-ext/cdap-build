@@ -77,6 +77,7 @@ pipeline {
 stage('SonarQube analysis') {
 steps {
 script {
+	withSonarQubeEnv('SonarQube')
 sh """
      mvn sonar:sonar -Dsonar.host.url=http://192.168.105.120:9000 -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
     -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html \
