@@ -79,10 +79,13 @@ steps {
 script {
 def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
-sh """
-     mvn sonar:sonar -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-    -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html \
-    -Dsonar.dependencyCheck.reportPath=target/dependency-check-report.xml """
+cdap_sonar(env.SONAR_PATH)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS)
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE)
+cdap_sonar(env.SONAR_PATH_SECURITY_EXTN)
 /*timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
