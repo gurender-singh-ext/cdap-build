@@ -40,6 +40,8 @@
     <dependency.check.report.dir>target</dependency.check.report.dir>
     <sonar.dependencyCheck.reportPath>${dependency.check.report.dir}/dependency-check-report.xml</sonar.dependencyCheck.reportPath>
     <sonar.dependencyCheck.htmlReportPath>${dependency.check.report.dir}/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
+    <sonar.projectKey>${groupId}:${artifactId}:${version}</sonar.projectKey>
+    <sonar.projectName>${groupId}:${artifactId}:${version}</sonar.projectName>
   </properties>
 
   <build>
