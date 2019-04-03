@@ -77,6 +77,7 @@ pipeline {
 stage('SonarQube analysis') {
 steps {
 script {
+try{
 def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
 /* 
@@ -95,7 +96,11 @@ if (qg.status != 'OK') {
 error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
 }*/
-}
+} 
+} catch(Exceptioon e) 
+	{
+		echo e.toString()
+	}
 }
 }
 }
