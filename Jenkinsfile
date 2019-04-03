@@ -79,6 +79,9 @@ steps {
 script {
 def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
+/* 
+cdap_sonar(Path, Name_of_Branch, Any_Additional_Arguments)
+*/
 cdap_sonar(env.SONAR_PATH, env.BRANCH_NAME, '-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts')
 timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
