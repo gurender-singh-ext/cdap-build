@@ -79,19 +79,13 @@ steps {
 script {
 def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
-cdap_sonar(env.SONAR_PATH, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.BRANCH_NAME)
-cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.BRANCH_NAME)
-/*timeout(time: 2, unit: 'HOURS') {
+cdap_sonar(env.SONAR_PATH, env.BRANCH_NAME, '-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts')
+timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
 error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
-}*/
+}
 }
 }
 }
