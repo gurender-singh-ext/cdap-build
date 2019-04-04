@@ -77,8 +77,6 @@ pipeline {
 stage('SonarQube analysis') {
 steps {
 script {
-def scannerHome = tool 'sonar';
-withSonarQubeEnv('sonar') {
 /* 
 cdap_sonar(Path, Name_of_Branch, Name_of_project)
 */
