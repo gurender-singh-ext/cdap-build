@@ -14,7 +14,7 @@ pipeline {
 	SONAR_PATH_APP_ARTIFACTS_MRDS = './app-artifacts/cdap-mrds'
 	SONAR_PATH_APP_ARTIFACTS_MMDS = './app-artifacts/mmds'
 	SONAR_PATH_APP_ARTIFACTS_AFE = './app-artifacts/auto-feature-engineering'
-	SONAR_PATH_SECURITY_EXTN = './security-extensions'  
+	SONAR_PATH_SECURITY_EXTN = './security-extensions/cdap-security-extn'  
 	}
   stages {
     stage("Define Release version"){
