@@ -80,13 +80,13 @@ script {
 /* 
 cdap_sonar(Path, Name_of_Branch, Name_of_project)
 */
-cdap_sonar(env.SONAR_PATH_CDAP, env.BRANCH_NAME, 'CDAP')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.BRANCH_NAME, 'DRE')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.BRANCH_NAME, 'HYDRATOR-PLUGINS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.BRANCH_NAME, 'MRDS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.BRANCH_NAME, 'MMDS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.BRANCH_NAME, 'AFE')
-cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.BRANCH_NAME, 'SECURITY-EXTENSION')
+cdap_sonar(env.SONAR_PATH_CDAP, env.branchVersion, 'CDAP')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.branchVersion, 'DRE')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.branchVersion, 'HYDRATOR-PLUGINS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.branchVersion, 'MRDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.branchVersion, 'MMDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.branchVersion, 'AFE')
+cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.branchVersion, 'SECURITY-EXTENSION')
 /*timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
