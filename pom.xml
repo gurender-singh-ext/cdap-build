@@ -35,14 +35,6 @@
     <module>app-artifacts/cdap-mrds</module>
     <module>cdap</module>
   </modules>
-  
-  <properties>
-    <dependency.check.report.dir>target</dependency.check.report.dir>
-    <sonar.dependencyCheck.reportPath>${dependency.check.report.dir}/dependency-check-report.xml</sonar.dependencyCheck.reportPath>
-    <sonar.dependencyCheck.htmlReportPath>${dependency.check.report.dir}/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
-    <sonar.projectKey>${project.groupId}:${project.artifactId}:${project.version}</sonar.projectKey>
-    <sonar.projectName>${project.groupId}:${project.artifactId}:${project.version}</sonar.projectName>
-  </properties>
 
   <build>
     <plugins>
