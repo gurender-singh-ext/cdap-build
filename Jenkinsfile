@@ -77,19 +77,18 @@ pipeline {
 stage('SonarQube analysis') {
 steps {
 script {
-try{
 def scannerHome = tool 'sonar';
 withSonarQubeEnv('sonar') {
 /* 
-cdap_sonar(Path, Name_of_Branch, Any_Additional_Arguments)
+cdap_sonar(Path, Name_of_Branch, Name_of_project)
 */
-cdap_sonar(env.SONAR_PATH_CDAP, env.BRANCH_NAME, "CDAP")
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.BRANCH_NAME, "DRE")
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.BRANCH_NAME, "HYDRATOR-PLUGINS")
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.BRANCH_NAME, "MRDS")
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.BRANCH_NAME, "MMDS")
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.BRANCH_NAME, "AFE")
-cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.BRANCH_NAME, "SECURITY-EXTENSION")
+cdap_sonar(env.SONAR_PATH_CDAP, env.BRANCH_NAME, 'CDAP')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.BRANCH_NAME, 'DRE')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.BRANCH_NAME, 'HYDRATOR-PLUGINS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.BRANCH_NAME, 'MRDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.BRANCH_NAME, 'MMDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.BRANCH_NAME, 'AFE')
+cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.BRANCH_NAME, 'SECURITY-EXTENSION')
 /*timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
@@ -97,10 +96,6 @@ error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
 }*/
 } 
-} catch(Exception e) 
-	{
-		echo e.toString()
-	}
 }
 }
 }
