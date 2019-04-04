@@ -97,7 +97,7 @@ error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
 }*/
 } 
-} catch(Exceptioon e) 
+} catch(Exception e) 
 	{
 		echo e.toString()
 	}
