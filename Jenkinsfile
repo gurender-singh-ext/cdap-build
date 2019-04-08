@@ -65,7 +65,7 @@ pipeline {
 		    
 	}}}
 	  
-/*stage('SonarQube analysis') {
+stage('SonarQube analysis') {
 steps {
 script {
 sonarqube(env.SONAR_PATH)
@@ -77,7 +77,7 @@ error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
 }
 }
-}*/
+}
 	stage("ZIP PUSH"){
 	  steps{
 	    script{
