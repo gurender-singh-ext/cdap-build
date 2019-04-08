@@ -8,7 +8,13 @@ pipeline {
 	ARTIFACT_SRC1 = './cdap/**/target'
 	ARTIFACT_SRC2 = './cdap-ambari-service/target'
 	ARTIFACT_DEST1 = 'gvs-dev-debian/pool/c'
-	SONAR_PATH = './cdap'
+	SONAR_PATH_CDAP = './cdap'
+	SONAR_PATH_APP_ARTIFACTS_DRE = './app-artifacts/dre'
+	SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS = './app-artifacts/hydrator-plugins'
+	SONAR_PATH_APP_ARTIFACTS_MRDS = './app-artifacts/cdap-mrds'
+	SONAR_PATH_APP_ARTIFACTS_MMDS = './app-artifacts/mmds'
+	SONAR_PATH_APP_ARTIFACTS_AFE = './app-artifacts/auto-feature-engineering'
+	SONAR_PATH_SECURITY_EXTN = './security-extensions/cdap-security-extn'  
 	}
   stages {
     stage("Define Release version"){
@@ -41,31 +47,64 @@ pipeline {
 		cd cdap && \
 		mvn clean install -DskipTests -Dcheckstyle.skip && \
 		cd .. && \
-		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
-		mvn install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
+		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
+		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
 		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
-		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm  && \
-		mvn package -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
-		-DskipTests \
-		-Dcheckstyle.skip=true \
-		-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		-Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}   \
+		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm
+		"""
+		    if (env.BRANCH_NAME ==~ 'release/guavus_.*') {
+		    sh"""
+		    mvn clean deploy -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
+		    -DskipTests \
+		    -Dcheckstyle.skip=true \
+		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
+		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
+		    } 
+		    else {
+		    sh"""
+		    mvn clean install -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
+		    -DskipTests \
+		    -Dcheckstyle.skip=true \
+		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
+		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
+		    }
+		sh"""
+		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
+        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
 	  
 stage('SonarQube analysis') {
 steps {
 script {
-sonarqube(env.SONAR_PATH)
-timeout(time: 1, unit: 'HOURS') {
+/* 
+cdap_sonar(Path, Name_of_Branch, Name_of_project)
+The Path be a path to the folder which contains the POM file for the project/module.
+*/
+cdap_sonar(env.SONAR_PATH_CDAP, env.branchVersion, 'CDAP')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.branchVersion, 'DRE')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.branchVersion, 'HYDRATOR-PLUGINS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.branchVersion, 'MRDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.branchVersion, 'MMDS')
+cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.branchVersion, 'AFE')
+cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.branchVersion, 'SECURITY-EXTENSION')
+timeout(time: 2, unit: 'HOURS') {
 def qg = waitForQualityGate()
 if (qg.status != 'OK') {
 error "Pipeline aborted due to quality gate failure: ${qg.status}"
 }
 }
+} 
 }
 }
+
+
 }
+	stage("ZIP PUSH"){
+	  steps{
+	    script{
+	    tar_push ( env.buildType, '${WORKSPACE}/cdap/cdap-standalone/target', 'ggn-archive/cdap-build' )
+    }}}
 
 	stage("RPM PUSH"){
 	  steps{
