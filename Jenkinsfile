@@ -69,7 +69,7 @@ pipeline {
 		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
 		    }
 		sh"""
-		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
+		mvn org.owasp:dependency-check-maven:check -Ddownloader.quick.query.timestamp=false -DskipSystemScope=true \
         	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
