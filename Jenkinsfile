@@ -63,7 +63,7 @@ pipeline {
 		    else {
 		    sh"""
 		    mvn clean install -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
-		    -DskipTests \
+		    -Dmaven.test.skip=true \
 		    -Dcheckstyle.skip=true \
 		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
@@ -73,30 +73,6 @@ pipeline {
         	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
-	  
-stage('SonarQube analysis') {
-steps {
-script {
-/* 
-cdap_sonar(Path, Name_of_Branch, Name_of_project)
-The Path be a path to the folder which contains the POM file for the project/module.
-*/
-cdap_sonar(env.SONAR_PATH_CDAP, env.branchVersion, 'CDAP')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_DRE, env.branchVersion, 'DRE')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_HYDRATOR_PLUGINS, env.branchVersion, 'HYDRATOR-PLUGINS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MRDS, env.branchVersion, 'MRDS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_MMDS, env.branchVersion, 'MMDS')
-cdap_sonar(env.SONAR_PATH_APP_ARTIFACTS_AFE, env.branchVersion, 'AFE')
-cdap_sonar(env.SONAR_PATH_SECURITY_EXTN, env.branchVersion, 'SECURITY-EXTENSION')
-/*timeout(time: 2, unit: 'HOURS') {
-def qg = waitForQualityGate()
-if (qg.status != 'OK') {
-error "Pipeline aborted due to quality gate failure: ${qg.status}"
-}
-}*/
-}
-}
-
 
 }
 	stage("ZIP PUSH"){
