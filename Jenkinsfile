@@ -74,7 +74,6 @@ pipeline {
 		"""
 	}}}
 
-}
 	stage("ZIP PUSH"){
 	  steps{
 	    script{
