@@ -73,11 +73,12 @@ pipeline {
         	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
-
+	"""
 	stage("ZIP PUSH"){
 	  steps{
 	    script{
-	    tar_push ( env.buildType, '${WORKSPACE}/cdap/cdap-standalone/target', 'ggn-archive/cdap-build' )
+	    tar_push ( env.buildType, '${WORKSPACE}/cdap/cdap-standalone/target', 'ggn-archive/cdap-build' ) 
+	"""
     }}}
 
 	stage("RPM PUSH"){
