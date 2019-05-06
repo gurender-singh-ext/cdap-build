@@ -73,12 +73,13 @@ pipeline {
         	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
 		"""
 	}}}
-	"""
 	stage("ZIP PUSH"){
+
 	  steps{
 	    script{
+	    if (env.BRANCH_NAME ==~ 'release/guavus_.*') {
 	    tar_push ( env.buildType, '${WORKSPACE}/cdap/cdap-standalone/target', 'ggn-archive/cdap-build' ) 
-	"""
+	    }
     }}}
 
 	stage("RPM PUSH"){
