@@ -44,36 +44,40 @@ pipeline {
 		cd cdap-ambari-service && \
 		./build.sh && \
 		cd .. && \
-		cd cdap && \
-		mvn clean install -DskipTests -Dcheckstyle.skip && \
-		cd .. && \
-		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
-		mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
-		rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
-		rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm
-		"""
-		    if (env.BRANCH_NAME ==~ 'release/guavus_.*') {
-		    sh"""
-		    mvn clean deploy -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
-		    -DskipTests \
-		    -Dcheckstyle.skip=true \
-		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
-		    } 
-		    else {
-		    sh"""
-		    mvn clean install -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
-		    -DskipTests \
-		    -Dcheckstyle.skip=true \
-		    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
-		    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
-		    }
-		sh"""
-		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
-        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
+		#cd cdap && \
+		#mvn clean install -DskipTests -Dcheckstyle.skip && \
+		#cd .. && \
+		#mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -pl cdap/cdap-api -P templates && \
+		#mvn clean install -DskipTests -Dcheckstyle.skip=true -B -am -f cdap/cdap-app-templates -P templates && \
+		#rm -rf ${env.WORKSPACE}/cdap/*/target/*.rpm  && \
+		#rm -rf ${env.WORKSPACE}/ansible_rpm/*.rpm
+		#"""
+		#    if (env.BRANCH_NAME ==~ 'release/guavus_.*') {
+		#    sh"""
+		#    mvn clean deploy -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
+		#    -DskipTests \
+		#    -Dcheckstyle.skip=true \
+		#    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
+		#    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
+		#    } 
+		#    else {
+		#    sh"""
+		#    mvn clean install -P examples,templates,dist,release,rpm-prepare,rpm,deb-prepare,deb \
+		#    -DskipTests \
+		#    -Dcheckstyle.skip=true \
+		#    -Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts \
+		#    -Dsecurity.extensions.dir=${env.WORKSPACE}/security-extensions -DbuildNumber=${env.RELEASE}"""
+		#    }
+		#sh"""
+		#mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
+        	#-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
                 cd ${env.WORKSPACE}/app-artifacts/auto-metadata-service && \
                 mvn clean install -Dcheckstyle.skip=true && \
-                mkdir -p build;cd build;cmake ..;make metadatasync_rpm; cd ../
+                mkdir -p build && \
+                cd build && \
+                cmake .. && \
+                make metadatasync_rpm && \
+                cd ../../../
 		"""
 	}}}
 	  
