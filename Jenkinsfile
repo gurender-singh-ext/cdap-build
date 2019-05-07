@@ -70,7 +70,8 @@ pipeline {
 		    }
 		sh"""
 		mvn org.owasp:dependency-check-maven:check -DskipSystemScope=true \
-        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \*/
+        	-Dadditional.artifacts.dir=${env.WORKSPACE}/app-artifacts && \
+		*/
                 cd ${env.WORKSPACE}/app-artifacts/auto-metadata-service && \
                 mvn clean install -Dcheckstyle.skip=true && \
                 mkdir -p build && \
